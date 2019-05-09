@@ -1,70 +1,54 @@
-var express = require('express');
+const express = require('express');
 var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+const bodyParser = require('body-parser');
+const crypto = require('crypto');
+//var http = require('http').Server(app);
+//var io = require('socket.io')(http);
 var port = process.env.PORT || 8000;
-var path = require('path');
-// io.of('/my-namespace').on('connection', (client) => {
-//   client.on('subscribeToTimer', (interval) => {
-//     console.log('client is subscribing to timer with interval ', interval);
-//     setInterval(() => {
-//       client.emit('timer', new Date());
-//     }, interval);
-//   });
-// });
-
-
-// io.listen(port);
-// console.log('listening on port ', port);
-
-app.use(express.static(path.join(__dirname, 'public')));
-
-var numUsers = 0;
-io.on('connection', function(socket) {
-  var addedUser = false;
-  
-  socket.on('add user', (username) => {
-    if (addedUser) return;
-
-    socket.username = username;
-    ++numUsers;
-    addedUser = true;
-    socket.emit('login', {
-      numUsers: numUsers
-    });
-    socket.broadcast.emit('user joined', {
-      username: socket.username,
-      numUsers: numUsers
-    });
-  });
-  socket.on('typing', () => {
-    socket.broadcast.emit('typing', {
-      username: socket.username
-    });
-  });
-  socket.on('stop typing', () => {
-    socket.broadcast.emit('stop typing', {
-      username: socket.username
-    });
-  });
-  socket.on('disconnect', function(){
-    if (addedUser) {
-      --numUsers;
-
-      // echo globally that this client has left
-      socket.broadcast.emit('user left', {
-        username: socket.username,
-        numUsers: numUsers
-      });
+var allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header('Access-Control-Allow-Credentials','true');
+  next();
+};
+var qrResult = {};
+app.use(allowCrossDomain);
+app.use(bodyParser.json());
+app.get('/', function(req, res) {
+  var uuid = req.query.uuid;
+  var secret = 'abcdefg';
+  var hash = crypto.createHmac('sha256', secret)
+                    .update(uuid)
+                    .digest('hex');
+  qrResult = {
+    key: hash
+  };
+  res.send(qrResult);
+});
+app.use(bodyParser.urlencoded({
+  extended:true
+}));
+app.post('/', function (req, res) {
+  console.log('req.body',req.body);
+  console.log('qrResult',qrResult);
+  if (req.body.key === qrResult.key) {
+    
+    var scanResult = {
+      code: 1,
+      msg: "success"
     }
-  });
-  socket.on('new message', (data) => {
-    socket.broadcast.emit('new message', {
-      username: socket.username,
-      message: data
-    });
-  });
-});
-http.listen(port, function() {
-  console.log('listening on port ', port);
-});
+    res.send(scanResult);
+  } else {
+    var scanResult = {
+      code: 0,
+      msg: "failed"
+    }
+    res.send(scanResult);
+  }
+  
+  
+})
+app.listen(port, () => {
+  console.log('Example app listening on port ', port)
+})

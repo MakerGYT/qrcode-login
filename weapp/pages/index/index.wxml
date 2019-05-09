@@ -1,0 +1,12 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="userinfo">
+    <button bindtap="scanCode"> scan </button>
+  </view>
+  <block class="">
+    {{key}}
+  </block>
+  <block class="">
+    {{result}}
+  </block>
+</view>
