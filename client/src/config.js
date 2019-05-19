@@ -1,3 +1,4 @@
 module.exports = {
-  basicUrl: "http://192.168.42.114:8000",
+  basicUrl: "http://localhost:3000/", // domain
+  serverUrl: "http://localhost:8080/",
 }

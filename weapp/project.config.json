@@ -10,21 +10,23 @@
 	},
 	"setting": {
 		"urlCheck": false,
-		"es6": true,
-		"postcss": true,
-		"minified": true,
+		"es6": false,
+		"postcss": false,
+		"minified": false,
 		"newFeature": true,
 		"autoAudits": false,
 		"checkInvalidKey": true
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.6.6",
-	"appid": "wx3797508a5e86abc4",
-	"projectname": "socket-qrcode-weapp",
+	"appid": "wx56ff4f457b23ebd1",
+	"projectname": "weapp",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
 	"isGameTourist": false,
+	"cloudfunctionRoot": "cloud/",
+	"miniprogramRoot": "client/",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {
@@ -36,13 +38,32 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 1,
+			"list": [
+				{
+					"id": -1,
+					"name": "index/index",
+					"pathName": "pages/index/index",
+					"query": "key=test",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "auth/auth",
+					"pathName": "pages/auth/auth",
+					"query": "key=test",
+					"scene": null
+				}
+			]
 		}
 	}
 }
