@@ -6,7 +6,7 @@ let app = getApp();
 const isDebug = app.globalData.isDebug;
 Page({
   onLoad: function (options) {
-
+    console.log(options.key);
     this.connectSocket(options.key);
     wx.cloud.callFunction({
       name: 'user',

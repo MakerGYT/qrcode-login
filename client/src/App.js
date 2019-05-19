@@ -4,7 +4,7 @@ import uuidv1 from 'uuid/v1';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import io from 'socket.io-client';
 
-import { serverUrl, basicUrl } from './config';
+import { serverUrl, clientUrl } from './config';
 
 class Index extends Component {
   constructor(props) {
@@ -83,7 +83,7 @@ class Index extends Component {
               uuid: result.uuid,
               isLoaded: true,
               qrCodeContent: result.qrCodeContent,
-              qrCodeUrl: basicUrl + result.qrCodeContent
+              qrCodeUrl: clientUrl + result.qrCodeContent
             });
             this.createConnect(uuid);
           } else {

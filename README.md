@@ -42,7 +42,7 @@ create-react-app
 cnpm i
 # src/config.js
 module.exports = {
-  basicUrl: "http://localhost:3000/", # domain
+  clientUrl: "http://localhost:3000/", # domain
   serverUrl: "http://localhost:8080/", # server
 }
 ```
@@ -50,5 +50,11 @@ module.exports = {
 ```sh
 # project.config.json
 "appid": "",
+# client/config.js
+module.exports = {
+  clientUrl: "http://localhost:3000/", # domain
+  serverUrl: "http://localhost:8080/", # server
+  debug: true,
+}
 ```
 upload deploy cloud

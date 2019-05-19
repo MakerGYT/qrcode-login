@@ -27,6 +27,8 @@ Page({
             url: scanContent
           })
         } else {
+          console.log(qrCodeUrl)
+          console.log(clientUrl)
           wx.showModal({
             title: 'Error',
             content: 'what are you scanning',
