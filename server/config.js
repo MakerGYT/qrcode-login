@@ -1,9 +1,9 @@
 module.exports = {
   httpPort: process.env.PORT || 8080,
   mysqlConfig: {
-    host: '114.115.180.168',
-    user: 'test',
-    password: 'test',
+    host: '127.0.0.1',
+    user: 'root',
+    password: '123456',
     database: 'user'
   },
   authPage: {

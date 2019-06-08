@@ -97,7 +97,7 @@ function checkAuthority(openid, callback) {
       console.log('[SELECT ERROR] - ', err.message);
       return;
     }
-    console.log('checkAuthority', result);
+    
     var authResult = {
       code: 0,
     }
